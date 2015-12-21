@@ -1,64 +1,59 @@
-MoviePy
-=======
 
-MoviePy is a Python module for script-based movie editing, which enables basic operations (cuts, concatenations, title insertions) to be done in a few lines. It can also be used for advanced compositing and special effects. Let me put together the clips in my demonstration folder: ::
-    
-    import os
-    from moviepy.all import *
-    files = sorted( os.listdir("clips/") )
-    clips = [ VideoFileClip('clips/%s'%f) for f in files]
-    video = concatenate(clips, transition = VideoFileClip("logo.avi"))
-    video.to_videofile("demos.avi",fps=25, codec="mpeg4")
-    
-.. raw:: html
+.. image:: logo.png
+    :width: 50%
+    :align: center
 
-        <center>
-        <object><param name="movie"
-        value="http://www.youtube.com/v/zGhoZ4UBxEQ&hl=en_US&fs=1&rel=0">
-        </param><param name="allowFullScreen" value="true"></param><param
-        name="allowscriptaccess" value="always"></param><embed
-        src="http://www.youtube.com/v/zGhoZ4UBxEQ&hl=en_US&fs=1&rel=0"
-        type="application/x-shockwave-flash" allowscriptaccess="always"
-        allowfullscreen="true" width="550" height="450"></embed></object>
-        </center>
-
-You will find the code for most clips in the :ref:`examples`.
-
-You can do pretty much any effect you want with MoviePy, but it is just a framework, and in most cases you will need to code a little (or find someone who will !) to come to your goal.
+..  MoviePy
+..  =======
 
 
-User's Guide
---------------
+
+MoviePy is a Python module for video editing, which can be used for basic operations (like cuts, concatenations, title insertions), video compositing (a.k.a. non-linear editing), video processing, or to create advanced effects. It can read and write the most common video formats, including GIF.
+
+Here it is in action (run in an IPython Notebook):
+
+.. image:: demo_preview.jpeg
+    :width: 500px
+    :align: center
+
+User Guide
+------------
 
 .. toctree::
    :maxdepth: 1
    
    install
-   crash_course/crash_course
+   getting_started/getting_started
+   gallery
    examples/examples
+   FAQ
    ref/ref
+    
+Contribute !
+--------------
 
-
-MoviePy is a (still experimental) open source software written by Zulko_ and released under the MIT licence. Everyone is very welcome to help improve the project, fork it, blog on it, share code for new effects, etc... The more, the merrier !
-
-For troubleshooting and bug reports, the best for now is to ask on Stackoverflow_ (it will advertize for the project :) ) or on the Github project page.
-
-Indices and tables
-------------------
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+MoviePy is an open source software originally written by Zulko_ and released under the MIT licence. It works on Windows, Mac, and Linux, with Python 2 or Python 3. The code is hosted on Github_, where you can push improvements, report bugs and ask for help. There is also a MoviePy forum on Reddit_ and a mailing list on librelist_ .
 
 .. raw:: html
 
-        <a href="https://github.com/Zulko/moviepy">
-        <img style="position: absolute; top: 0; right: 0; border: 0;"
-        src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
-        alt="Fork me on GitHub"></a>
+    <a href="https://twitter.com/share" class="twitter-share-button"
+    data-text="MoviePy - Video editing with Python" data-size="large" data-hashtags="MoviePy">Tweet
+    </a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+    if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
+    fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+    </script>
+    
+    <iframe src="http://ghbtns.com/github-btn.html?user=Zulko&repo=moviepy&type=watch&count=true&size=large"
+    allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe>
+..    <a href="https://github.com/Zulko/moviepy">
+..    <img style="position: absolute; top: 0; right: 0; border: 0;"
+..    src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
+..    alt="Fork me on GitHub"></a>
 
-
+.. _PyPI: https://pypi.python.org/pypi/moviepy
 .. _Zulko: https://github.com/Zulko/
 .. _Stackoverflow: http://stackoverflow.com/
-
+.. _Github: https://github.com/Zulko/moviepy
+.. _Reddit: http://www.reddit.com/r/moviepy/
+.. _librelist: mailto:moviepy@librelist.com

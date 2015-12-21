@@ -25,7 +25,12 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.todo', 'sphinx.ext.viewcode']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.todo',
+              'sphinx.ext.viewcode', 'sphinx.ext.autosummary','numpydoc']
+
+numpydoc_class_members_toctree= False
+numpydoc_show_class_members= False
+autosummary_generate= True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -41,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'MoviePy'
-copyright = u'2013, Zulko'
+copyright = u'2014, Zulko'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -94,11 +99,12 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
+import sphinx_rtd_theme
 sys.path.append(os.path.abspath('_themes'))
 sys.path.append("../moviepy")
-html_theme_path = ['_themes']
-html_theme = 'flask'
-
+#html_theme_path = ['_themes']
+html_theme = "sphinx_rtd_theme" # formerly 'kr'
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -116,7 +122,7 @@ html_theme = 'flask'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+html_logo = '_static/logo_small.jpeg'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32

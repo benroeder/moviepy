@@ -9,7 +9,7 @@ background made of stars. Slight fading effect on the text.
 import numpy as np
 from skimage import transform as tf
 
-from moviepy.all import *
+from moviepy.editor import *
 from moviepy.video.tools.drawing import color_gradient
 
 
@@ -55,7 +55,7 @@ clip_txt = TextClip(txt,color='white', align='West',fontsize=25,
 
 txt_speed = 27
 fl = lambda gf,t : gf(t)[int(txt_speed*t):int(txt_speed*t)+h,:]
-moving_txt= clip_txt.fl(fl, applyto=['mask'])
+moving_txt= clip_txt.fl(fl, apply_to=['mask'])
 
 
 # ADD A VANISHING EFFECT ON THE TEXT WITH A GRADIENT MASK
@@ -87,20 +87,21 @@ warped_txt.mask = warped_txt.mask.fl_image(fl_mask)
 
 # BACKGROUND IMAGE, DARKENED AT 60%
 
-stars = ImageClip('../../starworms/stars.jpg')
+stars = ImageClip('../../videos/stars.jpg')
 stars_darkened = stars.fl_image(lambda pic: (0.6*pic).astype('int16'))
 
 
 # COMPOSE THE MOVIE
 
 final = CompositeVideoClip([
-         stars, warped_txt.set_pos(('center','bottom'))],
+         stars_darkened,
+         warped_txt.set_pos(('center','bottom'))],
          size = moviesize)
 
 
 # WRITE TO A FILE
 
-final.set_duration(8).to_videofile("starworms.avi")
+final.set_duration(8).write_videofile("starworms.avi", fps=5)
 
 # This script is heavy (30s of computations to render 8s of video)
 
@@ -135,7 +136,7 @@ def annotate(clip,txt,txt_color='white',bg_color=(0,0,255)):
 
 
 def resizeCenter(clip):
-    return clip.fx( vfx.resize, height=h).set_pos('center')
+    return clip.resize( height=h).set_pos('center')
 
     
 def composeCenter(clip):
@@ -175,5 +176,4 @@ annotated_clips = [ annotate(clip,text) for clip,text in [
 
 # Concatenate and write to a file
 
-concatenate(annotated_clips).to_videofile('tutorial.avi')
-
+concatenate_videoclips(annotated_clips).write_videofile('tutorial.avi', fps=5)

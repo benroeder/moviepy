@@ -1,109 +1,66 @@
+.. _install:
+
 Download and Installation
 ==========================
 
 
-Core dependencies
--------------------
+Installation
+--------------
 
-MoviePy cannot run without these dependencies:
-
-- The software ffmpeg_ is needed for writing, reading, converting the sound and the video. Normally any version of FFMPEG should work but it is recommended to use a recent version for better results.
-- `Numpy`_ is needed for image and sound manipulation
-- The Decorator_ module is used in the MoviePy code for better code readability
-
-Numpy and Decorator will be automatically installed during MoviePy's installation if not present on your computer. As for ffmpeg, you can either install it or save the binary files in any folder and specify the path to these folders before installing MoviePy (see manual_install_).
-
-.. _pip_install:
-
-Installation with PIP
-------------------------
-
-On Linux, if you have pip installed, just type this in a terminal ::
+**Method with pip:** if you have ``pip`` installed, just type this in a terminal (it will install ez_setup if you don't already have it) ::
     
-    sudo pip install moviepy
+    (sudo) pip install moviepy
 
-Maybe it works with easy_install too, but it hasn't been fully tested yet.
+If you have neither ``setuptools`` nor ``ez_setup`` installed the command above will fail, is this case type this before installing: ::
 
+    (sudo) pip install ez_setup
 
-.. _manual_install:
-
-Manual installation
-----------------------
-
-You can install moviepy manually by downloading the sources, either on PYPI_ or (if you want the development version) on Github_ .
-
-Then just unzip everything in one folder, open a terminal and type ::
+**Method by hand:** download the sources, either on PyPI_ or (if you want the development version) on Github_, unzip everything in one folder, open a terminal and type ::
     
-    sudo python setup.py install
+    (sudo) python setup.py install
 
-Before doing that, you should make sure that MoviePy can locate ffmpeg on your computer. To do that, run the script ``moviepy/conf.py``. It it fails, then you must enter the path in the first line of this file ::
+MoviePy depends on the Python modules Numpy_, imageio_, Decorator_, and tqdm_, which will be automatically installed during MoviePy's installation. It should work  on Windows/Mac/Linux, with Python 2.7+ and 3 ; if you have trouble installing MoviePy or one of its dependencies, please provide feedback !
+
+MoviePy depends on the software FFMPEG for video reading and writing. You don't need to worry about that, as FFMPEG should be automatically downloaded/installed by ImageIO during your first use of MoviePy (it takes a few seconds). If you want to use a specific version of FFMPEG, follow the instructions in file ``config_defaults.py``.
+
+
+Other optional but useful dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ImageMagick_ is not strictly required, only if you want to write texts. It can also be used as a backend for GIFs but you can do GIFs with MoviePy without ImageMagick.
+
+Once you have installed it, ImageMagick will be automatically detected by MoviePy, **except on Windows !**. Windows user, before installing MoviePy by hand, go into the ``moviepy/config_defaults.py`` file and provide the path to the ImageMagick binary called `convert`. It should look like this ::
     
-    FFMPEG_BINARY = path/to/your/ffmpeg
+    IMAGEMAGICK_BINARY = "C:\\Program Files\\ImageMagick_VERSION\\convert.exe"
 
- 
-(Not so) Optional dependencies
--------------------------------
+PyGame_ is needed for video and sound previews (useless if you intend to work with MoviePy on a server but really essential for advanced video editing *by hand*).
 
-You are not obliged to install these but for many uses MoviePy will scream at you and say that the package or the software is missing. All these dependencies can be installed any time after the installation of MoviePy.
+For advanced image processing you will need one or several of these packages. For instance using the method ``clip.resize`` requires that at least one of Scipy, PIL, Pillow or OpenCV are installed.
 
-- PyGame_ is needed for video and sound previews (really essential for advanced editing).
-- imageMagick_  is needed for all text generation, GIF support, and much more in the future.
-
-There are many packages for image manipulation/processing in python.  Most effects are coded such that none of these packages are needed, or such that having at least one of these packages is sufficient.
-
-- Scipy is needed for many advanced functionalities (tracking, segmenting, etc.)
+- The Python Imaging Library (PIL) or, better, its branch Pillow_ .
+- Scipy_ (for tracking, segmenting, etc.), and can be used for resizing video clips if PIL and OpenCV aren't installed on your computer.
 - `Scikit Image`_ may be needed for some advanced image manipulation.
-- The Python Imaging Library is not used yet (I don't like the copyright) but it is coming. 
-- `OpenCV 2.4.6`_ (which provides the python package ``cv2``) or more recent may be needed for some advanced image manipulation. See below for the installation of OpenCV.
+- `OpenCV 2.4.6`_ or more recent (provides the package ``cv2``) or more recent may be needed for some advanced image manipulation.
 
-If you are on linux, these will surely be in your repos.
+If you are on linux, these softwares will surely be in your repos.    
 
-
-Installing OpenCV 2.4.6
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-OpenCV is very optional, its installation is not always simple and I found it to be unstable, be warned. The installation seems easy for Windows. On linux, here is what I found on the Internet:
-
-- Remove any other version of OpenCV if you installed it through a package manager.
-- Unzip the source code of `OpenCV 2.4.6`_ in some folder. open a terminal in this folder.
-- Make a new directory and go into this directory: ::
-      
-      mkdir release
-      cd release
-      
-- Run ``cmake``. Here is the line I used: ::
-      
-      cmake -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=OFF -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON ..
-      
-- Run ``make``. This may take a few minutes (15 minutes on my computer). ::
-      
-      make
-      
-- Finally, install. ::
-      
-      sudo make install
-      
-And voilà !
-
-You can check if it worked by opeing a Python console and typing ::
-    
-    import cv2
-    print cv2.__version__
-
-Advice: do not throw your ``release`` folder away. If later you have strange bugs with OpenCV involving ``.so`` files, just redo the ``sudo make install`` step.
-    
-
-
-
-
-.. _PYPI https://pypi.python.org/pypi/moviepy
-.. _Github: https://github.com/Zulko/moviepy
-.. _`OpenCV 2.4.6`: http://sourceforge.net/projects/opencvlibrary/files/
-.. _Pygame: http://www.pygame.org/download.shtml
 .. _`Numpy`: http://www.scipy.org/install.html
-.. _`Scikit Image`: http://scikit-image.org/download.html
 .. _Decorator: https://pypi.python.org/pypi/decorator
-
+.. _tqdm: https://pypi.python.org/pypi/tqdm
 
 .. _ffmpeg: http://www.ffmpeg.org/download.html 
+
+
 .. _imageMagick: http://www.imagemagick.org/script/index.php
+.. _Pygame: http://www.pygame.org/download.shtml
+.. _imageio: http://imageio.github.io/
+
+.. _Pillow: http://pillow.readthedocs.org/en/latest/
+.. _Scipy: http://www.scipy.org/
+.. _`Scikit Image`: http://scikit-image.org/download.html
+
+.. _Github: https://github.com/Zulko/moviepy
+.. _PyPI: https://pypi.python.org/pypi/moviepy
+.. _`OpenCV 2.4.6`: http://sourceforge.net/projects/opencvlibrary/files/
+
+

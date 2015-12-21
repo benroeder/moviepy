@@ -1,6 +1,6 @@
 import pickle
 
-from moviepy.all import *
+from moviepy.editor import *
 from moviepy.video.tools.tracking import manual_tracking, to_fxfy
 
 
@@ -42,10 +42,10 @@ txt = TextClip("Hey you ! \n You're blurry!", color='grey70',
                
 # Concatenate the Chaplin clip with the text clip, add audio
 
-final = concatenate([clip_blurred,txt.set_duration(3)]).\
+final = concatenate_videoclips([clip_blurred,txt.set_duration(3)]).\
           set_audio(clip.audio)
 
 # We write the result to a file. Here we raise the bitrate so that
 # the final video is not too ugly.
 
-final.to_videofile('../../blurredChaplin.avi', bitrate="3000k")
+final.write_videofile('../../blurredChaplin.avi', bitrate="3000k")

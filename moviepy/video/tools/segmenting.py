@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.ndimage as ndi
-from moviepy.video.ImageClip import ImageClip
+from moviepy.video.VideoClip import ImageClip
 
 
 def findObjects(clip,rem_thr=500, preview=False):
@@ -14,7 +14,7 @@ def findObjects(clip,rem_thr=500, preview=False):
     """
     
     image = clip.get_frame(0)
-    if clip.mask == None:
+    if clip.mask is None:
         clip = clip.add_mask()
         
     mask = clip.mask.get_frame(0)
@@ -44,7 +44,7 @@ def findObjects(clip,rem_thr=500, preview=False):
     
     if preview:
         import matplotlib.pyplot as plt
-        print "found %d objects"%(num_features)
+        print( "found %d objects"%(num_features) )
         fig,ax = plt.subplots(2)
         ax[0].axis('off')
         ax[0].imshow(labelled)
